@@ -278,7 +278,7 @@ document.getElementById('start-button').addEventListener('click', () => {
       if (!tappedOnce) {
         screen.innerHTML = `
           <p><strong>${playerNames[playerIndex]}</strong>, il tuo ruolo è:</p>
-          <h2>${roles[playerIndex]}</h2>
+          <h2 style="color:#fff">${roles[playerIndex]}</h2>
         `;
         if(roles[playerIndex] == "Master") {
           screen.innerHTML += `<p><em>La parola che dovrai fare indovinare è: ${selectedWord}.</em></p>`;
