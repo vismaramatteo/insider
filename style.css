@@ -9,6 +9,7 @@ html, body {
   font-family: 'Arial Black', Arial, sans-serif;
   overflow-x: hidden;
   overflow-y: hidden;
+  font-size: 18px;
 }
 
 *, *::before, *::after {
@@ -131,7 +132,7 @@ button:hover {
 /* Media query per mobile */
 @media (max-width: 480px) {
   h1, h2, h3 {
-    font-size: 1.2rem;
+    font-size: 20px;
     margin: 15px 0;
   }
 
@@ -146,3 +147,4 @@ button:hover {
     margin: 15px 0;
   }
 }
+
