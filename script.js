@@ -281,11 +281,11 @@ document.getElementById('start-button').addEventListener('click', () => {
           <h2 style="color:#fff">${roles[playerIndex]}</h2>
         `;
         if(roles[playerIndex] == "Master") {
-          screen.innerHTML += `<p><em>La parola che dovrai fare indovinare è: ${selectedWord}.</em></p>`;
+          screen.innerHTML += `<p><em>La parola che dovrai fare indovinare è:<br/><span style="font-size: 55px; color: #fff">${selectedWord}.</span></em></p>`;
           screen.innerHTML += `<p><em>Ricorda che potrai rispondere alle domande dei giocatori solo con: 'Sì', 'No' e 'Non lo so'</em></p>`;
         }
         if(roles[playerIndex] == "Insider") {
-          screen.innerHTML += `<p><em>La parola che dovrai indovinare è: ${selectedWord}.</em></p>`;
+          screen.innerHTML += `<p><em>La parola che dovrai indovinare è:<br/><span style="font-size: 55px; color: #fff">${selectedWord}.</span></em></p>`;
           screen.innerHTML += `<p><em>Cerca di fare indovinare la parola senza fare domande troppo ovvie, attirerebbero l'attenzione su di te!</em></p>`;
         }
         screen.innerHTML += `<p><em>Tocca per passare al prossimo giocatore</em></p>`;
