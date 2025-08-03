@@ -160,8 +160,8 @@ button:hover {
   margin: 10px 0;
 }
 #start-button, #confirm-players {
-  max-width: 90dvw;
   max-width: 90vw;
+  max-width: 90dvw;
 }
 /* Media query per mobile */
 @media (max-width: 480px) {
@@ -181,6 +181,7 @@ button:hover {
     margin: 15px 0;
   }
 }
+
 
 
 
