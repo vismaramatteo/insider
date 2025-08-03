@@ -37,7 +37,7 @@ document.getElementById('start-button').addEventListener('click', () => {
       // Creo la schermata per inserire i nomi
       const nameScreen = document.createElement('div');
       nameScreen.id = 'name-screen';
-
+      document.getElementsByName('body').backgroundImage = '';
       let inputsHtml = '<h2>Inserisci il nome dei giocatori</h2>';
       for (let i = 1; i <= count; i++) {
         inputsHtml += `
