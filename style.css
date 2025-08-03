@@ -160,7 +160,7 @@ button:hover {
   margin: 10px 0;
 }
 #start-button, #confirm-players {
-  width: 90%
+  width: 30%
 }
 /* Media query per mobile */
 @media (max-width: 480px) {
@@ -180,3 +180,4 @@ button:hover {
     margin: 15px 0;
   }
 }
+
