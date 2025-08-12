@@ -339,7 +339,7 @@ document.getElementById('start-button').addEventListener('click', () => {
 
     let html = `<h2>Chi ha indovinato la parola?</h2>`;
     playerNames.forEach((name, index) => {
-      if (roles[index] !== "Master) {
+      if (roles[index] !== "Master") {
         html += `<button class="player-btn" data-index="${index}">${name}</button><br/>`;
       }
     });
@@ -560,6 +560,7 @@ document.getElementById('start-button').addEventListener('click', () => {
     container.innerHTML = '';
   }
 });
+
 
 
 
