@@ -444,7 +444,8 @@ document.getElementById('start-button').addEventListener('click', () => {
     document.getElementById('app-container').appendChild(screen);
 
     document.getElementById('restart-btn').addEventListener('click', () => {
-      location.reload(); // restart semplice
+      assignRoles(); // funzione che riassegna Master / Insider / Commoner
+      showRoleScreen(0); // riparte mostrando il ruolo al primo giocatore
     });
   }
 
@@ -452,6 +453,28 @@ document.getElementById('start-button').addEventListener('click', () => {
     clearScreen();
     let message = "Tempo scaduto!"
     showEndScreen(message);
+  }
+
+  function assignRoles() {
+      roles = []; // reset ruoli
+  
+      let totalPlayers = playerNames.length;
+      let masterIndex = Math.floor(Math.random() * totalPlayers);
+      let insiderIndex;
+  
+      do {
+          insiderIndex = Math.floor(Math.random() * totalPlayers);
+      } while (insiderIndex === masterIndex);
+  
+      for (let i = 0; i < totalPlayers; i++) {
+          if (i === masterIndex) {
+              roles.push("Master");
+          } else if (i === insiderIndex) {
+              roles.push("Insider");
+          } else {
+              roles.push("Commoner");
+          }
+      }
   }
 
   function pickWord() {
@@ -535,5 +558,6 @@ document.getElementById('start-button').addEventListener('click', () => {
     container.innerHTML = '';
   }
 });
+
 
 
