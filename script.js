@@ -399,7 +399,9 @@ document.getElementById('start-button').addEventListener('click', () => {
     playerNames.forEach((name, index) => {
       // Escludo chi ha indovinato, perché già escluso dal voto
       // if (index !== guessedPlayer.index) {
-        html += `<button class="vote-btn" data-index="${index}">${name}</button><br/>`;
+        if (roles[index] !== "Master" /* && index !== guessedPlayer.index */) {
+            html += `<button class="vote-btn" data-index="${index}">${name}</button><br/>`;
+        }
       //}
     });
 
@@ -533,4 +535,5 @@ document.getElementById('start-button').addEventListener('click', () => {
     container.innerHTML = '';
   }
 });
+
 
