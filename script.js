@@ -447,7 +447,8 @@ document.getElementById('start-button').addEventListener('click', () => {
 
     document.getElementById('restart-btn').addEventListener('click', () => {
       assignRoles(); // funzione che riassegna Master / Insider / Commoner
-      showPlayerRoleScreen(0); // riparte mostrando il ruolo al primo giocatore
+      selectedWord = pickWord();
+      showPlayerRoleScreen(0, selectedWord); // riparte mostrando il ruolo al primo giocatore
     });
   }
 
@@ -474,7 +475,7 @@ document.getElementById('start-button').addEventListener('click', () => {
           } else if (i === insiderIndex) {
               roles.push("Insider");
           } else {
-              roles.push("Commoner");
+              roles.push("Giocatore normale");
           }
       }
   }
@@ -560,6 +561,7 @@ document.getElementById('start-button').addEventListener('click', () => {
     container.innerHTML = '';
   }
 });
+
 
 
 
