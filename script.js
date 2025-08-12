@@ -447,7 +447,7 @@ document.getElementById('start-button').addEventListener('click', () => {
 
     document.getElementById('restart-btn').addEventListener('click', () => {
       assignRoles(); // funzione che riassegna Master / Insider / Commoner
-      showRoleScreen(0); // riparte mostrando il ruolo al primo giocatore
+      showPlayerRoleScreen(0); // riparte mostrando il ruolo al primo giocatore
     });
   }
 
@@ -560,6 +560,7 @@ document.getElementById('start-button').addEventListener('click', () => {
     container.innerHTML = '';
   }
 });
+
 
 
 
