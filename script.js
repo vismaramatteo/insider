@@ -263,15 +263,20 @@ document.getElementById('start-button').addEventListener('click', () => {
       const nameScreen = document.createElement('div');
       nameScreen.id = 'name-screen';
       document.getElementsByName('body').backgroundImage = '';
-      let inputsHtml = '<h2>Inserisci il nome dei giocatori</h2>';
+      let inputsHtml = `
+        <h2>Inserisci il nome dei giocatori</h2>
+        <div class="inputs-wrapper">
+      `;
       for (let i = 1; i <= count; i++) {
         inputsHtml += `
           <label for="player${i}">Giocatore ${i}:</label>
           <input type="text" id="player${i}" required placeholder="Nome giocatore ${i}" /><br/>
         `;
       }
-      inputsHtml += `<button id="confirm-names">Conferma</button>`;
-      
+      inputsHtml += `
+          <button id="confirm-names">Conferma</button>
+        </div>
+      `;
       nameScreen.innerHTML = inputsHtml;
       document.body.appendChild(nameScreen);
 
@@ -367,7 +372,7 @@ document.getElementById('start-button').addEventListener('click', () => {
     screen.style.textAlign = 'center';
 
     screen.innerHTML = `
-      <h2>${guessedPlayer.name} ha indovinato la parola.</h2>
+      <h2 id="playername">${guessedPlayer.name}</h2><h2> ha indovinato la parola.</h2>
       <p>Secondo voi è l'Insider?</p>
       <button id="vote-yes">Sì</button>
       <button id="vote-no">No</button>
@@ -378,9 +383,11 @@ document.getElementById('start-button').addEventListener('click', () => {
     // Se il gruppo vota "Sì"
     document.getElementById('vote-yes').addEventListener('click', () => {
       if (roles[guessedPlayer.index] === "Insider") {
-        showEndScreen(`Avete votato Sì ✅ ed era davvero l'Insider! Insider perde 🎉`);
+        //showEndScreen(`Avete votato Sì ✅ ed era davvero l'Insider! Insider perde 🎉`);
+        showEndScreen('INSIDER PERDE');
       } else {
-        showEndScreen(`Avete votato Sì ❌ ma ${guessedPlayer.name} non era l'Insider. Insider Vince!`);
+        //showEndScreen(`Avete votato Sì ❌ ma strong ${guessedPlayer.name} non era l'Insider. Insider Vince!`);
+        showEndScreen('INSIDER VINCE');
       }
     });
 
@@ -416,9 +423,11 @@ document.getElementById('start-button').addEventListener('click', () => {
         const chosen = playerNames[index];
 
         if (roles[index] === "Insider") {
-          showEndScreen(`Avete votato ${chosen} ✅ ed era davvero l'Insider! Insider perde!`);
+          //showEndScreen(`Avete votato ${chosen} ✅ ed era davvero l'Insider! Insider perde!`);
+          showEndScreen('INSIDER PERDE');
         } else {
-          showEndScreen(`Avete votato ${chosen} ❌ ma non era l'Insider. Insider vince! 🎉`);
+          //showEndScreen(`Avete votato ${chosen} ❌ ma non era l'Insider. Insider vince! 🎉`);+
+          showEndScreen('INSIDER VINCE');
         }
       });
     });
@@ -430,17 +439,18 @@ document.getElementById('start-button').addEventListener('click', () => {
     const screen = document.createElement('div');
     screen.id = 'end-screen';
     screen.style.textAlign = 'center';
-    screen.style.paddingTop = '52vh'
+    screen.style.paddingTop = '10vh' //52vh
 
     const insiderIndex = roles.indexOf("Insider");
     const insiderName = playerNames[insiderIndex];
 
+    //message = '';
     screen.innerHTML = `
-      <h2>Partita terminata!</h2>
-      <p>${message}</p>
-      <p>La parola era: ${selectedWord}</p>
-      <p>L'Insider era: <strong>${insiderName}</strong></p>
-      <button id="restart-btn">Gioca di nuovo</button>
+      <h2 style="color:#000">Partita terminata!</h2>
+      <p style="color:#000; font-size:3vh; margin-top:-3px">La parola era:<br/><span style="color:#fff; font-size:6vh">${selectedWord}</span></p>
+      <p style="color:#000; margin-top:210px; font-size:3vh">L'Insider era:<br/><strong id="playername"><span style="color:#fff; font-size:6vh">${insiderName}</span></strong></p>
+      <p style="color:#fff; font-size:3vh;">${message}</p>
+      <button id="restart-btn" style="margin-top:9vh">Gioca di nuovo</button>
     `;
 
     document.getElementById('app-container').appendChild(screen);
@@ -462,11 +472,11 @@ document.getElementById('start-button').addEventListener('click', () => {
       roles = []; // reset ruoli
   
       let totalPlayers = playerNames.length;
-      let masterIndex = Math.floor(Math.random() * totalPlayers);
+      let masterIndex = getSecureRandomInt(totalPlayers);
       let insiderIndex;
   
       do {
-          insiderIndex = Math.floor(Math.random() * totalPlayers);
+          insiderIndex = getSecureRandomInt(totalPlayers);
       } while (insiderIndex === masterIndex);
   
       for (let i = 0; i < totalPlayers; i++) {
@@ -481,7 +491,7 @@ document.getElementById('start-button').addEventListener('click', () => {
   }
 
   function pickWord() {
-    const index = Math.floor(Math.random() * paroleSegrete.length)
+    const index = getSecureRandomInt(paroleSegrete.length);
     return paroleSegrete[index]
   }
 
@@ -501,7 +511,7 @@ document.getElementById('start-button').addEventListener('click', () => {
 
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
+      const j = getSecureRandomInt(i + 1);
       [array[i], array[j]] = [array[j], array[i]];
     }
   }
@@ -523,25 +533,35 @@ document.getElementById('start-button').addEventListener('click', () => {
     let tappedOnce = false;
 
     screen.innerHTML = `
-      <p>È il turno di <strong>${playerNames[playerIndex]}</strong></p>
+      <p>È il turno di <strong id="playername">${playerNames[playerIndex]}</strong></p>
       <p><em>Tocca per vedere il tuo ruolo</em></p>
     `;
 
     screen.addEventListener('click', () => {
       if (!tappedOnce) {
         screen.innerHTML = `
-          <p><strong>${playerNames[playerIndex]}</strong>, il tuo ruolo è:</p>
-          <h2 style="color:#fff">${roles[playerIndex]}</h2>
+          <p><strong id="playername" style="font-size: 55px">${playerNames[playerIndex]}</strong><br/> il tuo ruolo è:
+          <span style="font-size: 55px; color:#fff">${roles[playerIndex]}</span>
         `;
         if(roles[playerIndex] == "Master") {
-          screen.innerHTML += `<p><em>La parola che dovrai fare indovinare è:<br/><span style="font-size: 55px; color: #fff">${selectedWord}.</span></em></p>`;
-          screen.innerHTML += `<p><em>Ricorda che potrai rispondere alle domande dei giocatori solo con: 'Sì', 'No' e 'Non lo so'</em></p>`;
+          screen.innerHTML = `
+            <img style="width: 250px" src="role_master.png">
+            <p><strong id="playername" style="font-size: 55px">${playerNames[playerIndex]}</strong><br/> il tuo ruolo è:
+            <span style="font-size: 55px; color:#fff">${roles[playerIndex]}</span>
+          `;
+          screen.innerHTML += `<em>La parola è:<br/><span style="font-size: 55px; color: #fff">${selectedWord}</span></em></p>`;
+          //screen.innerHTML += `<p><em>Ricorda che potrai rispondere alle domande dei giocatori solo con: 'Sì', 'No' e 'Non lo so'</em></p>`;
         }
         if(roles[playerIndex] == "Insider") {
-          screen.innerHTML += `<p><em>La parola che dovrai indovinare è:<br/><span style="font-size: 55px; color: #fff">${selectedWord}.</span></em></p>`;
-          screen.innerHTML += `<p><em>Cerca di fare indovinare la parola senza fare domande troppo ovvie, attirerebbero l'attenzione su di te!</em></p>`;
+          screen.innerHTML = `
+            <img style="width: 250px" src="role_insider.png">
+            <p><strong id="playername" style="font-size: 55px">${playerNames[playerIndex]}</strong><br/> il tuo ruolo è:
+            <span style="font-size: 55px; color:#fff">${roles[playerIndex]}</span>
+          `;
+          screen.innerHTML += `<em>La parola è:<br/><span style="font-size: 55px; color: #fff">${selectedWord}</span></em></p>`;
+          //screen.innerHTML += `<p><em>Cerca di fare indovinare la parola senza fare domande troppo ovvie, attirerebbero l'attenzione su di te!</em></p>`;
         }
-        screen.innerHTML += `<p><em>Tocca per passare al prossimo giocatore</em></p>`;
+        screen.innerHTML += `<em>Tocca per passare al prossimo giocatore</em></p>`;
 
         tappedOnce = true;
       } else {
@@ -561,10 +581,9 @@ document.getElementById('start-button').addEventListener('click', () => {
     container.innerHTML = '';
   }
 });
-
-
-
-
-
-
-
+// Generatore di numeri casuali sicuro (0 <= n < max)
+function getSecureRandomInt(max) {
+  const array = new Uint32Array(1);
+  crypto.getRandomValues(array);
+  return array[0] % max;
+}
