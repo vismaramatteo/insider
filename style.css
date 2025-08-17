@@ -9,6 +9,7 @@ html, body {
   font-family: 'Arial Black', Arial, sans-serif;
   overflow-x: hidden;
   overflow-y: hidden;
+  font-size: 18px;
 }
 
 *, *::before, *::after {
@@ -110,12 +111,37 @@ button:hover {
   height: 100dvh;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: auto;
   justify-content: center;
   align-items: center;
-  padding: 20px 20px; /* un po’ di padding orizzontale */
+  padding: 40px 20px; /* un po’ di padding orizzontale */
   box-sizing: border-box;
   background-color: #eb1c2e;
   color: #0f1922;
+}
+
+#name-screen {
+  width: 100vw;
+  height: 100vh;
+  background-color: #eb1c2e;
+  color: #0f1922;
+  display: flex;
+  flex-direction: column;
+}
+
+#name-screen h2 {
+  font-size: 2rem;
+  margin: 20px 0;
+  text-align: center;
+  flex-shrink: 0;               /* il titolo rimane fisso in alto */
+}
+
+/* contenitore per gli input */
+#name-screen .inputs-wrapper {
+  flex: 1;                      /* prende tutto lo spazio rimanente */
+  overflow-y: scroll;           /* scrolla solo questa parte */
+  padding: 0 20px 20px;
 }
 
 #role-screen button {
@@ -154,14 +180,18 @@ button:hover {
   margin: 20px 0;
 }
 
+#playername {
+  font-style: italic;
+  color:#fff;
+}
+
 .player-btn, .vote-btn {
   display: block;
   width: 100%;
   margin: 10px 0;
 }
-#start-button, #confirm-players {
-  max-width: 90vw;
-  max-width: 90dvw;
+#start-button, #confirm-players, #restart-btn {
+  width: 90%
 }
 /* Media query per mobile */
 @media (max-width: 480px) {
@@ -181,7 +211,3 @@ button:hover {
     margin: 15px 0;
   }
 }
-
-
-
-
